@@ -1,0 +1,364 @@
+1.	What is Unboxing?  Give an example. (2.5 points)
+
+
+Converting a primitive value to a wrapper object is called boxing. The reverse conversion is 
+called unboxing.
+
+example: 
+public class UnboxingExample {
+    public static void main(String[] args) {
+        Integer integerObject = new Integer(10); // Wrapper class object
+        int primitiveInt = integerObject; // Unboxing: converting Integer to int
+
+        System.out.println("Wrapper class object (Integer): " + integerObject);
+        System.out.println("Primitive type (int): " + primitiveInt);
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+2.	State the difference between HashMap and TreeMap. (2.5 points)
+
+
+The HashMap class is efficient for locating a value, inserting an entry, and deleting an entry.
+
+The TreeMap class is efficient for traversing the keys in a sorted order
+
+
+
+A HashMap in Java does not guarantee any order of the elements, allows one null key, and is very fast with constant-time performance for basic operations like get and put. It's best used when you need quick access without worrying about the order.
+
+A TreeMap, on the other hand, keeps keys in sorted order, does not allow null keys, and is slower with logarithmic-time performance for basic operations. Use a TreeMap when you need to iterate over keys in a sorted manner.
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+3.	What is Polymorphism? Give an example. (2.5 points)
+
+
+An object of a subclass can be used wherever its superclass object is used. 
+Polymorphism means that a variable of a supertype can refer to a subtype object.
+
+
+example: 
+
+class Animal {
+    void makeSound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Dog barks");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Cat meows");
+    }
+}
+
+public class PolymorphismExample {
+    public static void main(String[] args) {
+        Animal myDog = new Dog(); // Upcasting
+        Animal myCat = new Cat(); // Upcasting
+
+        myDog.makeSound(); // Outputs: Dog barks
+        myCat.makeSound(); // Outputs: Cat meows
+    }
+}
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+4.	Create a one-parameter lambda that returns the cube of its argument. (2.5 points)
+
+	
+	import java.util.function.Function;
+
+	public class LambdaExample {
+  	  public static void main(String[] args) {
+        // Define a lambda that takes an integer and returns its cube
+        Function<Integer, Integer> cube = x -> x * x * x;
+
+        // Test the lambda expression
+        int result = cube.apply(3); // Should return 27
+        System.out.println("The cube of 3 is: " + result);
+    }
+}
+
+	
+
+-------------------------------------------------------------------------------------------------------------------------
+
+5.	State ExecutorService shutdown method functionality. (2.5 points)
+
+
+Stops New Tasks: After calling shutdown, no new tasks can be submitted.
+Completes Existing Tasks: It allows currently running tasks to finish before shutting down.
+Does Not Terminate Immediately: It does not stop tasks that are currently running; it waits for them to finish.
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+
+6.	Write any function and call it by CompletableFuture static method runaAsync. (2.5 points)
+
+
+import java.util.concurrent.CompletableFuture;
+
+public class CompletableFutureExample {
+    public static void main(String[] args) {
+        // Define a Runnable that prints a message
+        Runnable task = () -> {
+            System.out.println("Task is running asynchronously!");
+        };
+
+        // Call the Runnable using CompletableFuture.runAsync
+        CompletableFuture<Void> future = CompletableFuture.runAsync(task);
+
+        // Optionally, wait for the asynchronous task to complete
+        future.join(); // This is a blocking call to ensure the task is finished before exiting
+        System.out.println("Task has completed.");
+    }
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+7.	In Java Concurrency what is the difference between waiting state and timed waiting state? (2.5 points)
+
+Waiting State
+What It Is: A thread is in the waiting state when it waits indefinitely for another thread to perform an action.
+How It Happens: By calling methods like Object.wait() or Thread.join() without a timeout.
+When It Ends: The thread will stay in this state until it is notified or the condition it’s waiting for is met.
+Timed Waiting State
+What It Is: A thread is in the timed waiting state when it waits for a specific amount of time.
+How It Happens: By calling methods like Thread.sleep(millis) or Object.wait(millis).
+When It Ends: The thread will automatically resume or transition back to the runnable state after the specified time elapses.
+In short, waiting means waiting indefinitely, while timed waiting means waiting for a set period.
+
+
+
+	
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+8.	In SQL what does a many-to-many relationship mean? (2.5 points)
+
+
+In SQL, a many-to-many relationship occurs when multiple records in one table are associated with multiple records in another table. This kind of relationship requires a junction table (also called an associative table or a bridge table) to manage the associations between the two tables.
+
+In a many-to-many relationship:
+
+Each record in the first table can relate to multiple records in the second table.
+Each record in the second table can relate to multiple records in the first table.
+A junction table is used to manage these relationships.
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+
+9.	What is UDP Socket? (2.5 points)
+
+
+A UDP socket is a network socket used for communication over the User Datagram Protocol (UDP). UDP is a connectionless and lightweight protocol that operates on the transport layer of the Internet Protocol Suite.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+10.	Write a code snippet for creating unchecked Exception. (3.5 points)
+
+// Define a custom unchecked exception by extending RuntimeException
+public class MyUncheckedException extends RuntimeException {
+    // Constructor with no arguments
+    public MyUncheckedException() {
+        super();
+    }
+
+    // Constructor with a message
+    public MyUncheckedException(String message) {
+        super(message);
+    }
+
+    // Constructor with a message and cause
+    public MyUncheckedException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    // Constructor with a cause
+    public MyUncheckedException(Throwable cause) {
+        super(cause);
+    }
+}
+
+
+public class UncheckedExceptionExample {
+    public static void main(String[] args) {
+        try {
+            // Call a method that throws the custom unchecked exception
+            riskyMethod();
+        } catch (MyUncheckedException e) {
+            // Handle the exception
+            System.out.println("Caught an unchecked exception: " + e.getMessage());
+        }
+    }
+
+    // Method that throws the custom unchecked exception
+    public static void riskyMethod() {
+        // Throwing an instance of the custom unchecked exception
+        throw new MyUncheckedException("Something went wrong in riskyMethod!");
+    }
+}
+---------------------------------------------------------------------------------------------------------------------
+
+
+
+
+11.	Create an abstract class Student.
+Create a class with your name(ex. Ali.java) and extend it to the Student class. Create an interface with your favorite subject name (ex. Physics) and implement it in your class (ex. Ali.java). 
+
+Write a program that defines a list of Student objects (with name and grade fields) and uses a lambda expression to sort the list by grade in descending order. 
+
+Print the sorted list to the console (by lambda expression). (7 points)
+
+
+public abstract class Student {
+    private String name;
+    private int grade;
+
+    public Student(String name, int grade) {
+        this.name = name;
+        this.grade = grade;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{name='" + name + "', grade=" + grade + "}";
+    }
+}
+
+-------------
+public interface FavoriteSubject {
+    String getFavoriteSubject();
+}
+------------------
+
+public class Ali extends Student implements FavoriteSubject {
+
+    public Ali(String name, int grade) {
+        super(name, grade);
+    }
+
+    @Override
+    public String getFavoriteSubject() {
+        return "Mathematics"; // Replace with your favorite subject
+    }
+}
+-----------------------
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class StudentSortingExample {
+    public static void main(String[] args) {
+        // Create a list of Student objects
+        List<Student> students = new ArrayList<>();
+        students.add(new Ali("Alice", 85));
+        students.add(new Ali("Bob", 92));
+        students.add(new Ali("Charlie", 78));
+        
+        // Sort the list by grade in descending order using lambda expression
+        Collections.sort(students, (s1, s2) -> Integer.compare(s2.getGrade(), s1.getGrade()));
+        
+        // Print the sorted list
+        students.forEach(System.out::println);
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+12.	Create a Thread class that implements Runnable Interface. It has a constructor with one int parameter. Run method prints passed int argument, then sleeps thread with 2 seconds. Main method has an ExecutorService object. We should submit 6 times the Thread class, then shutdown  (7 points)
+
+public class MyRunnable implements Runnable {
+    private int number;
+
+    // Constructor with int parameter
+    public MyRunnable(int number) {
+        this.number = number;
+    }
+
+    @Override
+    public void run() {
+        // Print the number
+        System.out.println("Number: " + number);
+
+        try {
+            // Sleep for 2 seconds
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Restore interrupted status
+            System.err.println("Thread was interrupted");
+        }
+    }
+}
+------------------------
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ExecutorServiceExample {
+    public static void main(String[] args) {
+        // Create an ExecutorService with a fixed thread pool of 3 threads
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+
+        // Submit 6 tasks to the executor
+        for (int i = 1; i <= 6; i++) {
+            executor.submit(new MyRunnable(i));
+        }
+
+        // Initiate shutdown
+        executor.shutdown();
+
+        // Optional: Wait for all tasks to finish
+        try {
+            if (!executor.awaitTermination(10, java.util.concurrent.TimeUnit.SECONDS)) {
+                System.out.println("Not all tasks finished in time.");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Restore interrupted status
+            System.err.println("Thread was interrupted during awaitTermination");
+        }
+
+        System.out.println("Executor service has been terminated.");
+    }
+}
+
